@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 템플릿 인터페이스 간에 상호 참조를 하려면
+// 상호 참조를 하려는 두 클래스 중 하나는 상속받은 객체를 통해 참조한다
+
 public class BaseChar : MonoBehaviour, IObject<IObjectMng<BaseChar>>
 {
-    public IObjectMng<BaseChar> Manager { get { return manager; } }
     public CharState curState { get; set; }
+    public IObjectMng<BaseChar> Manager { get { return manager; } }
+    
 
     IObjectMng<BaseChar> manager;
     Animator animator;
