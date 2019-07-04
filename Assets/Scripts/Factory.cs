@@ -6,7 +6,24 @@ using UnityEngine;
 // 절차를 작동시키는 일반 함수(재정의 X)와, 절차에서 사용되는 함수(재정의 O)로 구분
 public class Factory
 {
+    TableBase tableBase;
+
     protected int uniqueCount = 0;
+
+    protected Dictionary<int, TableBase> tableDic = new Dictionary<int, TableBase>();
+
+    public Factory() { }
+    public Factory(TableBase tableBase)
+    {
+        SetTableBase(tableBase);
+    }
+
+    public void SetTableBase(TableBase tableBase) { this.tableBase = tableBase; }
+    public void AddTableBase(int index, TableBase tableBase)
+    {
+        if (!tableDic.ContainsKey(index))
+            tableDic.Add(index, tableBase);
+    }
 
     // 외부에서 접근할 수 있는 일반 함수
     public T Create<T>(int objectType, int tableID,
@@ -34,5 +51,5 @@ public class Factory
     void Destroy(Object obj, float time)
     {
         Object.Destroy(obj, time);
-    }
+    }    
 }

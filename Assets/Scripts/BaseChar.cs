@@ -2,26 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CharType
+{
+    HERO,
+    MON
+}
+
 // 템플릿 인터페이스 간에 상호 참조를 하려면
 // 상호 참조를 하려는 두 클래스 중 하나는 상속받은 객체를 통해 참조한다
 
 public class BaseChar : MonoBehaviour, IObject<IObjectMng<BaseChar>>
 {
+    Animator animator;
+
     public CharState curState { get; set; }
-    public IObjectMng<BaseChar> Manager { get { return manager; } }
-    
+    public IObjectMng<BaseChar> Manager { get { return manager; } }    
 
     IObjectMng<BaseChar> manager;
-    Animator animator;
+    public void SetMng(IObjectMng<BaseChar> manager) { this.manager = manager; }
+    int uniqueID = 0;
+    public int UniqueID { get { return uniqueID; } }
+    public void SetUniqueID(int uniqueID) { this.uniqueID = uniqueID; }
 
     public virtual void Init()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void SetMng(IObjectMng<BaseChar> manager)
+    public virtual void SetInfo(CharInfo charInfo)
     {
-        this.manager = manager;
+        Debug.Log(charInfo.hp);
+        Debug.Log(charInfo.atk);
+        Debug.Log(charInfo.def);
     }
 
     public virtual void Idle()

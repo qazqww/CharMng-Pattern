@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LowBase
+public class TableBase
 {
     Dictionary<int, Dictionary<string, string>> textDic = new Dictionary<int, Dictionary<string, string>>();
 

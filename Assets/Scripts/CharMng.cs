@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharMng : TSingleton<CharMng>, IObjectMng<BaseChar>
-{
+{    
     public Dictionary<int, BaseChar> Container { get; }
+
+    Factory factory;
+    public void SetFactory(Factory factory) { this.factory = factory; }
 
     public void Init()
     {
 
+    }
+
+    public void Create(int charType, int tableID)
+    {
+        factory.Create<BaseChar>(charType, tableID);
     }
 
     public void UpdateDepth()
