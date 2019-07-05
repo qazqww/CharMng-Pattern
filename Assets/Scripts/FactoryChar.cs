@@ -15,7 +15,7 @@ public class FactoryChar : Factory
 {
     public FactoryChar(TableBase tableBase) : base(tableBase)
     {
-
+        
     }
 
     protected override void AddObject(int tableID, Object obj)
@@ -29,9 +29,14 @@ public class FactoryChar : Factory
 
         CharInfo charInfo = new CharInfo();
         CharType charType = (CharType)objectType;
+        charInfo.atk = tableDic[objectType].ToInt(tableID, "ATK");
+        charInfo.def = tableDic[objectType].ToInt(tableID, "DF");
+        charInfo.hp = tableDic[objectType].ToInt(tableID, "HP");
         string path = string.Empty;
         string modelName = tableDic[objectType].ToStr(tableID, "MODEL");
+        // tableID 인덱스의 MODEL 명을 찾아온다.
         
+        // objectType에 따라 다른 경로를 찾는다.
         switch(charType)
         {
             case CharType.HERO:
@@ -43,12 +48,14 @@ public class FactoryChar : Factory
                     path = PathMng.MonPath + modelName;
                 break;
         }
+
         if(string.IsNullOrEmpty(path))
             return null;
 
         GameObject obj = GameObject.Instantiate(Resources.Load(path)) as GameObject;
         obj.SendMessage("SetInfo", charInfo, SendMessageOptions.DontRequireReceiver);
+        obj.SendMessage("Init", SendMessageOptions.DontRequireReceiver);
+        // Debug.Log(obj.GetComponent<Component>());
         return obj.GetComponent<Component>();
-
     }
 }

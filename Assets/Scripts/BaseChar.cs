@@ -16,24 +16,22 @@ public class BaseChar : MonoBehaviour, IObject<IObjectMng<BaseChar>>
     Animator animator;
 
     public CharState curState { get; set; }
-    public IObjectMng<BaseChar> Manager { get { return manager; } }    
 
-    IObjectMng<BaseChar> manager;
-    public void SetMng(IObjectMng<BaseChar> manager) { this.manager = manager; }
+    CharInfo charInfo;
+    public virtual void SetInfo(CharInfo charInfo) { this.charInfo = charInfo; }
+
     int uniqueID = 0;
     public int UniqueID { get { return uniqueID; } }
     public void SetUniqueID(int uniqueID) { this.uniqueID = uniqueID; }
 
+    IObjectMng<BaseChar> manager;
+    public IObjectMng<BaseChar> Manager { get { return manager; } }
+    public void SetMng(IObjectMng<BaseChar> manager) { this.manager = manager; }
+
     public virtual void Init()
     {
         animator = GetComponent<Animator>();
-    }
-
-    public virtual void SetInfo(CharInfo charInfo)
-    {
-        Debug.Log(charInfo.hp);
-        Debug.Log(charInfo.atk);
-        Debug.Log(charInfo.def);
+        Debug.Log(name + " ATK: " + charInfo.atk);
     }
 
     public virtual void Idle()

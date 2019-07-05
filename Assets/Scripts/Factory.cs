@@ -10,6 +10,7 @@ public class Factory
 
     protected int uniqueCount = 0;
 
+    // 테이블 모음
     protected Dictionary<int, TableBase> tableDic = new Dictionary<int, TableBase>();
 
     public Factory() { }
@@ -34,6 +35,7 @@ public class Factory
 
         if (autoDestroy)
             Destroy(obj, destroyTime);
+        
         return obj as T;
     }
 
@@ -43,6 +45,7 @@ public class Factory
 
     }
 
+    // 테이블 내에서 tableID 인덱스의 모델명을 objectType에 따른 경로에서 찾아 생성하겠다.
     protected virtual Component Create(int objectType, int tableID)
     {
         return null;
